@@ -1,5 +1,5 @@
 <template>
-  <img src="../assets/logo.png"/>
+  <img src="../assets/logo.jpeg"/>
 </template>
 
 <script>
@@ -8,6 +8,10 @@
     }
 </script>
 
-<style scoped>
-
+<style >
+img {
+  max-width: 40%;
+  max-height: 40%;
+  margin: 0 auto;
+}
 </style>

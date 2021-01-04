@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import Logo from "../components/logo";
+import Logo from "../components/logo"
+import {mapMutations} from 'vuex'
 export default {
   name: 'forgot',
   components: {Logo},
@@ -65,12 +66,14 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setToken','setUser','delAll']),
     getCode(name) {
-      this.$refs[name].validate((valid) => {
+      this.$refs[name].validateField('email',(valid) => {
         console.log(valid)
-        if (valid) {
+        if (!valid) {
+          console.log(this.userdata)
           const TIME_COUNT = 60;
-          this.$axios.post('/sendEmailCode', this.userdata.email).then(res => {
+          this.$axios.post('/sendEmailCode', this.userdata).then(res => {
             console.log(res)
             var code = res.code
             var mes = res.msg
@@ -114,7 +117,9 @@ export default {
               this.$message.success('密码重置成功!')
               this.usertoken = res.data.usertoken
               console.log('usertoken', this.usertoken)
+              this.delAll()
               this.setToken({usertoken: this.usertoken})
+              this.setUser(res.data.user)
               var storage = window.localStorage
               if (storage) {
                 this.$router.push('/home')
@@ -149,11 +154,5 @@ export default {
   .forgot {
     width: 400px;
     margin: 0 auto;
-  }
-  span{
-    cursor: pointer;
-  }
-  span:hover{
-    color: green;
   }
 </style>

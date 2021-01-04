@@ -15,6 +15,7 @@ Vue.use(ViewUI);
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.prototype.$axios = api
+Vue.prototype.router=router
 
 new Vue({
   el: '#app',

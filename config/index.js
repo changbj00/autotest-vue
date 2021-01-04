@@ -13,13 +13,13 @@ module.exports = {
     proxyTable: {
       // target: 'http://127.0.0.1:8089',
       // changeOrigin: true
-      '/': {
-        target: 'http://127.0.0.1:8089',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/': '/'
-        }
-      }
+      // '/': {
+      //   target: 'http://127.0.0.1:8088',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/': '/'
+      //   }
+      // }
     },
 
     // Various Dev Server settings

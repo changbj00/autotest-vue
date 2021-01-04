@@ -9,8 +9,9 @@
         </Input>
       </FormItem>
       <FormItem prop="password">
-        <Input type="password" password v-model="loginform.password" placeholder="请输入密码">
-        <Icon type="ios-lock-outline" slot="prepend"></Icon>
+        <Input v-model="loginform.password" type="password" password placeholder="请输入密码" >
+        <Icon type="ios-lock-outline" slot="prepend"/>
+        <Icon style="width: 15px" slot="append"/>
         </Input>
       </FormItem>
       <FormItem>
@@ -26,6 +27,7 @@
   // 在这个组件script标签的export default上面引入一个东西
   import {mapMutations} from 'vuex'
   import Logo from '../components/logo'
+
   export default {
     name: 'login',
     components: {Logo},
@@ -49,7 +51,7 @@
       }
     },
     methods: {
-      ...mapMutations(['setToken']),
+      ...mapMutations(['setToken','setUser']),
       loginSubmit(name) {
         this.$refs[name].validate((valid) => {
           console.log(valid)
@@ -61,13 +63,12 @@
                 var mes = res.msg
                 if (code === 10000) {
                   this.$message.success('登录成功')
-                  this.usertoken = res.data.usertoken
-                  console.log('usertoken', this.usertoken)
-                  this.setToken({usertoken: this.usertoken})
+
+                  this.setToken({usertoken: res.data.usertoken})
+                  this.setUser(res.data.user)
                   var storage = window.localStorage
-                  if (this.$store.state.usertoken) {
+                  if (storage) {
                     this.$router.push('/home')
-                    console.log(this.$store.state.usertoken.usertoken)
                   } else {
                     this.$router.replace('/login')
                   }
@@ -88,7 +89,8 @@
       },
       forgot() {
         this.$router.push('/forgot')
-      }
+      },
+
     }
   }
 </script>
